@@ -8,32 +8,81 @@
     .mymargin{
         margin: 15px;
     }
+    .logos{
+        margin-top: 100px;
+        margin-bottom: 100px;
+        margin-right: 15px;
+        margin-left: 30px;
+    }
+    .grad{
+        background-image: linear-gradient(to bottom right, #FFF500, #FDBA10);
+    }
+    .cover{
+        height: 100vh;
+    }
+    .mycol{
+        margin-left: 50px;
+        margin-bottom: 5px;
+        background-color: #AF2C2A;
+    }
+    .big{
+        font-size: 500%;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 30px;
+        margin-left: 30px;
+    }
+    .small{
+        font-size: 250%;
+        margin-top: 20px;
+        margin-left: 50px;
+    }
+    .about{
+        margin-left: 50px;      
+    }
+    .mav{
+        width: 90%;
+        height: 90%;
+    }
+    .selectt{
+        width:80%;
+    }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md">
-            <img src="{{url_for('static', filename='logogg.png')}}" class="img-fluid" alt="Image not found">
+<div class="row">
+    <div class="col-3 cover">
+        <div class="row logos">
+            <img src="{{url_for('static', filename='neww.png')}}" class="img-fluid" alt="Image not found">
         </div>
-        <div class="col-md">
+        <div class="row logos">
             <img src="{{url_for('static', filename='L1Maverick.jpg')}}" class="img-fluid" alt="Image not found">
         </div>
-    <div>
-    <form class="mymargin" method="POST">
-            <div class="row">
-                <div class="col-md">
-                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="answer">
-                <option selected>Open this select menu</option>
-                {% for i in opns %}
-                    <option value="{{i}}">{{i}}</option>
-                {% endfor %}
-                </select>
-                </div>
-            </div> 
-        <button type="submit" class="btn btn-primary" value="submit">Submit</button>
-    </form>
+    </div>
+    <div class="col-9 grad cover">
+        <div class="row ">
+            <div class="shadow p-3 mb-5 rounded">
+                <h1 class="big">
+                Stock Balancing Solver
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <form class="mymargin" method="POST">
+                    <div class="row">
+                        <div class="col-md">
+                        <select class="form-select form-select-lg mb-3 selectt" aria-label=".form-select-lg example" name="answer">
+                        <option selected>Open this select menu</option>
+                        {% for i in opns %}
+                            <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                        </select>
+                        </div>
+                    </div> 
+                <button type="submit" class="btn btn-danger mycol" value="submit">Submit</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 </body>

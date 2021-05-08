@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, make_response
 import pandas as pd
 import cplex
 import docplex
+import csv
+from io import StringIO
 
 app = Flask(__name__)
 
@@ -141,6 +143,16 @@ def productwise():
 
 @app.route('/prodresult',methods=['POST','GET'])
 def prodresult():
+    if request.method == 'POST':
+        val = request.form['val']
+        si = StringIO()
+        cw = csv.writer(si)
+        cw.writerows(getpaths(val))
+        output = make_response(si.getvalue())
+        filename = str(val)+" deliveries.csv"
+        output.headers["Content-Disposition"] = "attachment; filename={}".format(filename)
+        output.headers["Content-type"] = "text/csv"
+        return output
     val = request.args['arg']
     prods = getpaths(val)
     return render_template('prodresult.html',result = prods,val1=val)
@@ -157,11 +169,27 @@ def second_page():
 
 @app.route('/result',methods=['POST','GET'])
 def result():
+    if request.method == 'POST':
+        joinval = request.form['val']
+        joinval = joinval.split()
+        val1,val2 = joinval[0],joinval[1]
+        si = StringIO()
+        cw = csv.writer(si)
+        lis = dicti()[val1,val2]
+        for row in lis:
+            if row[1]!=0:
+                cw.writerow(row)
+        output = make_response(si.getvalue())
+        filename = str(val1) + " to " + str(val2) +" deliveries.csv"
+        output.headers["Content-Disposition"] = "attachment; filename={}".format(filename)
+        output.headers["Content-type"] = "text/csv"
+        return output
     val1 = request.args['fromm']
     val2 = request.args['too']
     dict = dicti()
     result = dict[(val1,val2)]
-    return render_template('result.html',result=result,val1=val1,val2=val2)
+    joinval = str(val1)+" "+str(val2)
+    return render_template('result.html',result=result,val1=val1,val2=val2,joinval=joinval)
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', port = 5000, debug = True)
