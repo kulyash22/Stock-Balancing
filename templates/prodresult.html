@@ -70,7 +70,7 @@
         <div class="row ">
             <div class="shadow p-3 mb-5 rounded">
                 <h1 class="big">
-                Stock Balancing Solver
+                Stock Balancing
                 </h1>
             </div>
         </div>
@@ -90,15 +90,15 @@
             <thead>
                 <tr>
                 <th scope="col">#</th>
-                <th scope="col">Path</th>
-                <th scope="col">Amount (Hl)</th>
+                <th scope="col">Path (Brewery to Depot/Distributor)</th>
+                <th scope="col">Amount (hL)</th>
                 </tr>
             </thead>
             <tbody>
                 {% for a,b,c in result%}
                     {% if c!=0 %}
                         <tr>
-                        <th scope="row">1</th>
+                        <th scope="row">{{loop.index}}</th>
                         <td>{{a}} to {{b}}</td>
                         <td>{{c}}</td>
                         </tr>
@@ -108,13 +108,13 @@
             </table>
         </div>
         <form action="{{ url_for('productwise') }}">
-            <button type="submit" class="btn btn-danger mycol" value="submit">Try again</button>
+            <button type="submit" class="btn btn-danger mycol" value="submit">Try Different SKU</button>
+        </form>
+        <form class="mymargin" method="POST">
+            <button type="submit" class="btn btn-danger mycol" name="val" value="{{val1}}">Download CSV</button>
         </form>
         <form class="mymargin" action="{{ url_for('home') }}">
             <button type="submit" class="btn btn-danger mycol" value="submit">Home</button>
-        </form>
-        <form class="mymargin" method="POST">
-            <button type="submit" class="btn btn-danger mycol" name="val" value="{{val1}}">Download</button>
         </form>
     </div>
 </div>

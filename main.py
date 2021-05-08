@@ -5,6 +5,19 @@ import docplex
 import csv
 from io import StringIO
 
+"""
+ISSUES
+-complete excel sheet 
+-grid wise
+-credits and teamname
+-partial coloring
+-description path wise and product wise
+-change dec places
+-maverick size dikkat
+-compute function add
+-select me dikh raha/ error handling (optional)
+"""
+
 app = Flask(__name__)
 
 def compute():
@@ -76,7 +89,7 @@ def dicti():
             while strin[temp]!='\n':
                 answer = answer + strin[temp]
                 temp = temp+1
-            dct.setdefault((strin[i+2:i+9],strin[i+13:i+20]),[]).append((strin[i+24:i+29],float(answer)))
+            dct.setdefault((strin[i+2:i+9],strin[i+13:i+20]),[]).append((strin[i+24:i+29],round(float(answer),3)))
 
     for i in range(len(df_num)):
         key = (df_num[i][0],df_num[i][2]) 
