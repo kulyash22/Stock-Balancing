@@ -88,6 +88,7 @@ def apply_scenario_1(start, end):
 
 def apply_scenario_2(start, end):
   available_to_transport = df_num[start][9]
+  a_t_t = available_to_transport
   from docplex.mp.model import Model
   model_name = 'stock balancing' + str(start)
   m = Model(name = model_name)
@@ -107,7 +108,7 @@ def apply_scenario_2(start, end):
     n_var += 1
   max_diff = m.continuous_var(name = 'max_diff')
   excess = m.continuous_var(name = 'excess')
-  m.add_constraint(total_transported + excess == available_to_transport)
+  m.add_constraint(total_transported + excess == a_t_t)
   n_var_i = 0
   for i in range(end - start + 1):
     if df_num[start + i][3] == 'DIST':
@@ -126,6 +127,7 @@ def apply_scenario_2(start, end):
 
 def apply_scenario_3(start, end):
   available_to_transport = df_num[start][9]
+  a_t_t = available_to_transport
   from docplex.mp.model import Model
   model_name = 'stock balancing' + str(start)
   m = Model(name = model_name)
@@ -147,7 +149,7 @@ def apply_scenario_3(start, end):
     n_var += 1
   max_diff = m.continuous_var(name = 'max_diff')
   excess = m.continuous_var(name = 'excess')
-  m.add_constraint(total_transported + excess == available_to_transport)
+  m.add_constraint(total_transported + excess == att_t)
   n_var_i = 0
   for i in range(end - start + 1):
     if df_num[start + i][0] == df_num[start + i][2]:
@@ -166,6 +168,7 @@ def apply_scenario_3(start, end):
 
 def apply_scenario_4(start, end):
   available_to_transport = df_num[start][9]
+  a_t_t = available_to_transport
   from docplex.mp.model import Model
   model_name = 'stock balancing' + str(start)
   m = Model(name = model_name)
@@ -181,7 +184,7 @@ def apply_scenario_4(start, end):
     n_var += 1
   max_diff = m.continuous_var(name = 'max_diff')
   excess = m.continuous_var(name = 'excess')
-  m.add_constraint(total_transported + excess == available_to_transport)
+  m.add_constraint(total_transported + excess == a_t_t)
   for i in range(end - start + 1):
     for j in range(i + 1, end - start + 1):
       m.add_constraint((df_num[start + i][7] + decision_variables_transported[i])/df_num[i + start][5] - (df_num[j + start][7] + decision_variables_transported[j])/df_num[j + start][5] <= max_diff)
