@@ -134,6 +134,28 @@ def getpaths(val):
         final.append((ret[i][0],ret[i][1],amounts[i]))
     return final
 
+def getgrid():
+    grid_dict = {}
+    df_num = givedfnum()
+    dct = dicti()
+    # depot, to_be_transported, initial CS/ROP, final CS/ROP, scenario
+    for i in range(len(df_num)):
+        brew = df_num[i][0]
+        sku = df_num[i][1]
+        dep = df_num[i][2]
+        cs = df_num[i][7]
+        rop = df_num[i][5]
+        sc = df_num[i][10]
+        val = 0
+        temp_arr = dct[(brew,dep)]
+        for j in range(len(temp_arr)):
+            if temp_arr[j][0] == sku:
+                val = temp_arr[j][1]
+                break
+        grid_dict.setdefault((sku,brew) ,[]).append((dep, val, cs/rop, (cs + val)/rop, sc))
+    return grid_dict
+
+                
 @app.route('/',methods=['POST','GET'])
 def home():
     return render_template('homepage.html')
