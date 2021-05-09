@@ -1,21 +1,8 @@
+# necessary inputs
 from flask import Flask, render_template, request, redirect, url_for, make_response
 import pandas as pd
-import cplex
-import docplex
 import csv
 from io import StringIO
-
-"""
-ISSUES
--complete excel sheet 
--credits and teamname
--partial coloring
--description path wise and product wise
--maverick size dikkat
--compute function add
--column headings when downloaded
--select me dikh raha/ error handling (optional)
-"""
 
 app = Flask(__name__)
 
@@ -262,4 +249,4 @@ def result():
     return render_template('result.html',result=result,val1=val1,val2=val2,joinval=joinval)
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0', port = 5000, debug = True)
+    app.run(debug = True)
