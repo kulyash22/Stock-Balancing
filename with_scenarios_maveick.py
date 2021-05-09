@@ -66,31 +66,6 @@ df_new.head(30)
 
 # converting the dataframe to a numpy array (2D) for our convenience -->
 df_num = df_new.to_numpy()
-# function for balancing in relation to Re-Order Point (ROP) for a grid
-def balance_CS_ROP_ratio(start, end):
-  # defining the model to solve the LP for this grid
-  from docplex.mp.model import Model
-  model_name = 'stock balancing' + str(start)
-  m = Model(name = model_name)
-
-  # decision variables to signify the amount of beer transported on each each in this grid
-  decision_variables_transported = []
-  total_transported = 0
-  for i in range(end - start + 1):
-    name_x = 'X' + '_' + str(df_num[start + i][0]) + '_to_' + str(df_num[start + i][2]) + '_of_' + str(df_num[start + i][1]) 
-    decision_variables_transported.append(m.continuous_var(name = name_x))
-    total_transported += decision_variables_transported[i]
-    available_to_transport = df_num[start + i][9]
-  max_diff = m.continuous_var(name = 'max_diff')
-  excess = m.continuous_var(name = 'excess')
-  m.add_constraint(total_transported + excess == available_to_transport)
-  for i in range(end - start + 1):
-    for j in range(i + 1, end - start + 1):
-      m.add_constraint((df_num[start + i][7] + decision_variables_transported[i])/df_num[i + start][5] - (df_num[j + start][7] + decision_variables_transported[j])/df_num[j + start][5] <= max_diff)
-      m.add_constraint(-(df_num[start + i][7] + decision_variables_transported[i])/df_num[i + start][5] + (df_num[j + start][7] + decision_variables_transported[j])/df_num[j + start][5] <= max_diff)
-  m.minimize(100*max_diff + excess)
-  s = m.solve()
-  m.print_solution()
 
 def apply_scenario_1(start, end):
   hub_present = False
@@ -105,7 +80,7 @@ def apply_scenario_1(start, end):
         rem_for_hub -= to_send
         print("X_" + str(df_num[start + i][0]) + '_to_' + str(df_num[start + i][2]) + '_of_' + str(df_num[start + i][1]) + "=" + str(to_send) + '\n')
       else:
-        to_send = df_num[start + i][6]
+        to_send = max(df_num[start + i][6]-df_num[start + i][7],0)
         rem_for_hub -= to_send
         print("X_" + str(df_num[start + i][0]) + '_to_' + str(df_num[start + i][2]) + '_of_' + str(df_num[start + i][1]) + "=" + str(to_send) + '\n')
   if hub_present == True:
@@ -159,7 +134,7 @@ def apply_scenario_3(start, end):
   n_var = 0
   for i in range(end - start + 1):
     if df_num[start + i][0] == df_num[start + i][2]:
-      to_send = df_num[start + i][4]
+      to_send = max(df_num[start + i][4]-df_num[start + i][7], 0)
       available_to_transport -= to_send
       print("X_" + str(df_num[start + i][0]) + '_to_' + str(df_num[start + i][2]) + '_of_' + str(df_num[start + i][1]) + "=" + str(to_send) + '\n')
       total_transported += to_send
