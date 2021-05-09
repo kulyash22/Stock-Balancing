@@ -8,13 +8,12 @@ from io import StringIO
 """
 ISSUES
 -complete excel sheet 
--grid wise
 -credits and teamname
 -partial coloring
 -description path wise and product wise
--change dec places
 -maverick size dikkat
 -compute function add
+-column headings when downloaded
 -select me dikh raha/ error handling (optional)
 """
 

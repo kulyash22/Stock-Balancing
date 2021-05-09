@@ -114,7 +114,7 @@ def apply_scenario_2(start, end):
     if df_num[start + i][3] == 'DIST':
       continue
     n_var_j = 0
-    for j in range(i + 1, end - start + 1):
+    for j in range(end - start + 1):
       if df_num[start + j][3] == "DIST":
         continue
       m.add_constraint((df_num[start + i][7] + decision_variables_transported[n_var_i])/df_num[i + start][5] - (df_num[j + start][7] + decision_variables_transported[n_var_j])/df_num[j + start][5] <= max_diff)
@@ -155,7 +155,7 @@ def apply_scenario_3(start, end):
     if df_num[start + i][0] == df_num[start + i][2]:
       continue
     n_var_j = 0
-    for j in range(i + 1, end - start + 1):
+    for j in range(end - start + 1):
       if df_num[start + j][0] == df_num[start + j][2]:
         continue
       m.add_constraint((df_num[start + i][7] + decision_variables_transported[n_var_i])/df_num[i + start][5] - (df_num[j + start][7] + decision_variables_transported[n_var_j])/df_num[j + start][5] <= max_diff)
@@ -186,7 +186,7 @@ def apply_scenario_4(start, end):
   excess = m.continuous_var(name = 'excess')
   m.add_constraint(total_transported + excess == a_t_t)
   for i in range(end - start + 1):
-    for j in range(i + 1, end - start + 1):
+    for j in range(end - start + 1):
       m.add_constraint((df_num[start + i][7] + decision_variables_transported[i])/df_num[i + start][5] - (df_num[j + start][7] + decision_variables_transported[j])/df_num[j + start][5] <= max_diff)
       m.add_constraint(-(df_num[start + i][7] + decision_variables_transported[i])/df_num[i + start][5] + (df_num[j + start][7] + decision_variables_transported[j])/df_num[j + start][5] <= max_diff)
   m.minimize(100*max_diff + excess)
