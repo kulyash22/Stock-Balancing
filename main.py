@@ -149,12 +149,21 @@ def getgrid():
         val = 0
         temp_arr = dct[(brew,dep)]
         for j in range(len(temp_arr)):
-            if temp_arr[j][0] == sku:
+            if str(temp_arr[j][0]) == str(sku):
                 val = temp_arr[j][1]
                 break
-        grid_dict.setdefault((sku,brew) ,[]).append((dep, val, cs/rop, (cs + val)/rop, sc))
+        grid_dict.setdefault((str(sku),str(brew)) ,[]).append((str(dep), str(val), str(round((cs/rop),3)), str(round((cs + val)/rop,3)), str(sc)))
     return grid_dict
 
+def getbrewsfromprod(sku):
+    df_num = givedfnum()
+    myset = set()
+    for i in range(len(df_num)):
+        if str(df_num[i][1])==str(sku):
+            myset.add(df_num[i][0])
+    print(myset)
+    lis = list(myset)
+    return lis
                 
 @app.route('/',methods=['POST','GET'])
 def home():
@@ -175,6 +184,33 @@ def productwise():
         return redirect(url_for('.prodresult',arg=val))
     products = getproducts()
     return render_template('productlist.html',opns=products)
+
+@app.route('/gridwise',methods=['POST','GET'])
+def gridwise():
+    if request.method=='POST':
+        sku = request.form['answer']
+        return redirect(url_for('.gridwise2',arg=sku))
+    prods = getproducts()
+    return render_template('gridlist1.html',opns=prods)
+
+@app.route('/gridwise2',methods=['POST','GET'])
+def gridwise2():
+    if request.method=='POST':
+        val1 = request.form['answer1']
+        val2 = request.form['answer2']
+        return redirect(url_for('.gridresult',fromm=val1,too=val2))          
+    val = request.args['arg']
+    brews = getbrewsfromprod(val)
+    return render_template('gridlist2.html',opns=brews,arg=val)
+
+@app.route('/gridresult',methods=['POST','GET'])
+def gridresult():
+    val1 = request.args['fromm']
+    val2 = request.args['too']
+    result = getgrid()[(val1,val2)]
+    joinval = str(val1)+" "+str(val2)
+    scen = result[0][4]
+    return render_template('gridresult.html',result=result,val1=val1,val2=val2,joinval=joinval,scen=scen)
 
 @app.route('/prodresult',methods=['POST','GET'])
 def prodresult():

@@ -149,7 +149,7 @@ def apply_scenario_3(start, end):
     n_var += 1
   max_diff = m.continuous_var(name = 'max_diff')
   excess = m.continuous_var(name = 'excess')
-  m.add_constraint(total_transported + excess == att_t)
+  m.add_constraint(total_transported + excess == a_t_t)
   n_var_i = 0
   for i in range(end - start + 1):
     if df_num[start + i][0] == df_num[start + i][2]:

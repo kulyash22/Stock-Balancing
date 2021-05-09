@@ -44,16 +44,19 @@
         width: 90%;
         height: 90%;
     }
+    .selectt{
+        width:80%;
+    }
     </style>
 </head>
 <body>
 <div class="row">
     <div class="col-3 cover">
         <div class="row logos">
-        <img src="{{url_for('static', filename='neww.png')}}" class="img-fluid" alt="Image not found">
+            <img src="{{url_for('static', filename='neww.png')}}" class="img-fluid" alt="Image not found">
         </div>
         <div class="row logos">
-        <img src="{{url_for('static', filename='L1Maverick.jpg')}}" class="img-fluid mav" alt="Image not found">
+            <img src="{{url_for('static', filename='L1Maverick.jpg')}}" class="img-fluid" alt="Image not found">
         </div>
     </div>
     <div class="col-9 grad cover">
@@ -65,31 +68,21 @@
             </div>
         </div>
         <div class="row">
-            <form action="{{ url_for('gridwise') }}">
-                <button type="submit" class="btn btn-danger mycol" value="submit">Grid Wise</button>
+            <form class="mymargin" method="POST">
+                    <div class="row">
+                        <div class="col-md">
+                        <select class="form-select form-select-lg mb-3 selectt" aria-label=".form-select-lg example" name="answer">
+                        <option selected>Select SKU</option>
+                        {% for i in opns %}
+                            <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                        </select>
+                        </div>
+                    </div> 
+                <button type="submit" class="btn btn-danger mycol" value="submit">Next</button>
             </form>
         </div>
-        <div class="row">
-            <form action="{{ url_for('main') }}">
-                <button type="submit" class="btn btn-danger mycol" value="submit">Path Wise</button>
-            </form>
-        </div>
-        <div class="row">
-            <form action="{{ url_for('productwise') }}">
-                <button type="submit" class="btn btn-danger mycol" value="submit">Product Wise</button>
-            </form>
-        </div>
-        <div>
-        <div class="row">
-            <h1 class="small">
-                About
-            </h1>
-            <div class="about">
-                Welcome to the Stock Balancing Solver website made specially for the ABinBev's Maverick 2.0 Hackathon.
-            </div>
-        <div> 
     </div>
-<div>
-
+</div>
 </body>
 </html>

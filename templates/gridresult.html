@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Stock Balancing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <style>
+    .mymargin{
+        margin: 15px;
+    }
+    .shrink{
+        height: 1px;
+    }
+    .logos{
+        margin-top: 100px;
+        margin-bottom: 100px;
+        margin-right: 15px;
+        margin-left: 30px;
+    }
+    .grad{
+        background-image: linear-gradient(to bottom right, #FFF500, #FDBA10);
+    }
+    .cover{
+        
+    }
+    .mycol{
+        margin-left: 50px;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        margin-top: 7px;
+        background-color: #AF2C2A;
+        float: left;
+    }
+    .big{
+        font-size: 500%;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 30px;
+        margin-left: 30px;
+    }
+    .small{
+        font-size: 250%;
+        margin-top: 20px;
+        margin-left: 50px;
+    }
+    .about{
+        margin-left: 50px;      
+    }
+    .mav{
+        width: 90%;
+        height: 90%;
+    }
+    .selectt{
+        width:80%;
+    }
+    </style>
+</head>
+<body>
+
+<div class="row">
+    <div class="col-3 cover">
+        <div class="row logos">
+            <img src="{{url_for('static', filename='neww.png')}}" class="img-fluid" alt="Image not found">
+        </div>
+        <div class="row logos">
+            <img src="{{url_for('static', filename='L1Maverick.jpg')}}" class="img-fluid" alt="Image not found">
+        </div>
+    </div>
+    <div class="col-9 grad cover">
+        <div class="row ">
+            <div class="shadow p-3 mb-5 rounded">
+                <h1 class="big">
+                Stock Balancing
+                </h1>
+            </div>
+        </div>
+        <div class="mymargin">
+            <fieldset disabled>
+                <div class="row">
+                    <div class="col-md">
+                    <select class="form-select form-select-lg mb-3 selectt" aria-label=".form-select-lg example" name="answer_dis">
+                    <option selected>{{val1}}</option>
+                    </select>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset disabled>
+                <div class="row">
+                    <div class="col-md">
+                    <select class="form-select form-select-lg mb-3 selectt" aria-label=".form-select-lg example" name="answer_dis">
+                    <option selected>{{val2}}</option>
+                    </select>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <h1> Scenario is {{scen}} </h1>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Depot/Distributor</th>
+                    <th scope="col">Amount (hL)</th>
+                    <th scope="col">Initial CS/ROP</th>
+                    <th scope="col">Final CS/ROP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a,b,c,d,e in result%}   
+                            <tr>
+                            <th scope="row">{{loop.index}}</th>
+                            <td>{{a}}</td>
+                            <td>{{b}}</td>
+                            <td>{{c}}</td>
+                            <td>{{d}}</td>
+                            </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <form action="{{ url_for('gridwise') }}">
+            <button type="submit" class="btn btn-danger mycol" value="submit">Try Different Pair</button>
+        </form>
+<!--    <form class="mymargin" method="POST">
+            <button type="submit" class="btn btn-danger mycol" name="val" value="{{joinval}}">Download CSV</button>
+        </form>-->
+        <form class="mymargin" action="{{ url_for('home') }}">
+            <button type="submit" class="btn btn-danger mycol" value="submit">Home</button>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>
