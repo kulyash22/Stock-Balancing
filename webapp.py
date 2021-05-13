@@ -6,33 +6,24 @@ from io import StringIO
 
 app = Flask(__name__)
 
-def compute():
-    #do cplex computation
-    pass
-
 def givedfnum():
     df = pd.read_excel('Data.xlsx')
-    df.head()
 
     # sorting the data according to 'SKU' firstly and 'Supply Site Code' secondly to group all the edges of the same grid together -->
     df = df.sort_values(["SKU", "Supply Site Code"], ascending = (True, True))
-    df.head()
 
     # removing unwanted columns from the data -->
     remove_columns = ['Current CS/MIN', 'Current CS/ROP', 'Current CS/MAX']
     df.drop(labels = remove_columns, axis=1, inplace=True)
-    df.head()
 
     # renaming the column titles for our convenience and creating a new dataframe 'df_new' -->
     df_new = df.rename(columns={"Supply Site Code": "B", "Location Code": "D", "Location Type": "Type", "MinDOC (Hl)": "MIN", "Reorder Point (Hl)": "ROP", "MaxDOC (Hl)": "MAX", "Distributor Orders": "Orders", "Available to Deploy": "M", "Closing Stock": "CS"}, inplace = False)
-    df_new.head()
 
     # removing the rows where 'ROP' is zero -->
     df_new = df_new[df_new.ROP != 0]
 
     # removing the rows where 'Available to Deploy' = 'M' is zero (also 'Scenario' is zero in such cases) -->
     df_new = df_new[df_new.M != 0]
-    df_new.head(30)
 
     # converting the dataframe to a numpy array (2D) for our convenience -->
     df_num = df_new.to_numpy()
@@ -249,4 +240,4 @@ def result():
     return render_template('result.html',result=result,val1=val1,val2=val2,joinval=joinval)
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug = False)

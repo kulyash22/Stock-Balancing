@@ -166,8 +166,8 @@ def apply_scenario_3(start, end):
     decision_variables_transported.append(m.continuous_var(name = name_x))
     total_transported += decision_variables_transported[n_var]
     
-    #if df_num[start + i][3] == 'DIST':
-      #m.add_constraint(decision_variables_transported[n_var] <= df_num[start + i][8])
+    if df_num[start + i][3] == 'DIST':
+      m.add_constraint(decision_variables_transported[n_var] <= df_num[start + i][8])
       
     n_var += 1
     
