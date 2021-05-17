@@ -141,6 +141,47 @@ def getbrewsfromprod(sku):
     print(myset)
     lis = list(myset)
     return lis
+
+def fullpd():
+    df = pd.read_excel('Data.xlsx')
+    df_num = df.to_numpy()
+    dct = dicti()
+    output = []
+    for i in range(len(df_num)):
+        brewery = df_num[i][0]
+        depot = df_num[i][2]
+        sku = df_num[i][1]
+        if (brewery,depot) in dct:
+            v = dct[(brewery,depot)]
+            ok = False
+            for j in v:
+                if j[0]==str(sku):
+                    ok = True
+                    output.append(j[1])
+                    break
+            if ok==False:
+                output.append(0)
+        else:
+            output.append(0)
+    df['Final Output'] = output
+    df_final = df.to_numpy()
+    return df_final
+
+@app.route('/downmain',methods=['POST','GET'])
+def download():
+    si = StringIO()
+    cw = csv.writer(si)
+    lis = fullpd()
+    cw.writerow(['Supply Site Code',    'SKU','Location Code',   'Location Type',   'MinDOC (Hl)', 'Reorder Point (Hl)' , 'MaxDOC (Hl)','Closing Stock'   ,'Distributor Orders',  'Current CS/MIN',  'Current CS/ROP'  ,'Current CS/MAX' , 'Available to Deploy', 'Scenario','FINAL AMOUNT (Hl)'])
+    for row in lis:
+        cw.writerow(row)
+    output = make_response(si.getvalue())
+    filename = "FINAL_OUTPUT.csv"
+    output.headers["Content-Disposition"] = "attachment; filename={}".format(filename)
+    output.headers["Content-type"] = "text/csv"
+    return output
+    return render_template('homepage.html')
+
                 
 @app.route('/',methods=['POST','GET'])
 def home():
