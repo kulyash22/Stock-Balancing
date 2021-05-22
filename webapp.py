@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for, make_response
 import pandas as pd
 import csv
+import operator
 from io import StringIO
 
 app = Flask(__name__)
@@ -123,13 +124,22 @@ def getgrid():
         cs = df_num[i][7]
         rop = df_num[i][5]
         sc = df_num[i][10]
+        typepl = df_num[i][3]
+        if typepl=='DIST':
+            type=2
+        if typepl == 'DEP':
+            type = 1
+        if brew==dep:
+            type = 0
         val = 0
         temp_arr = dct[(brew,dep)]
         for j in range(len(temp_arr)):
             if str(temp_arr[j][0]) == str(sku):
                 val = temp_arr[j][1]
                 break
-        grid_dict.setdefault((str(sku),str(brew)) ,[]).append((str(dep), str(val), str(round((cs/rop),3)), str(round((cs + val)/rop,3)), str(sc)))
+        grid_dict.setdefault((str(sku),str(brew)) ,[]).append((str(dep), str(val), str(round((cs/rop),3)), str(round((cs + val)/rop,3)), str(sc), str(type)))
+    for keyy in grid_dict:
+        grid_dict[keyy] = sorted(grid_dict[keyy],key = lambda x: x[0])
     return grid_dict
 
 def getbrewsfromprod(sku):
@@ -228,6 +238,7 @@ def gridresult():
     result = getgrid()[(val1,val2)]
     joinval = str(val1)+" "+str(val2)
     scen = result[0][4]
+    result = sorted(result,key = lambda x: x[5])
     return render_template('gridresult.html',result=result,val1=val1,val2=val2,joinval=joinval,scen=scen)
 
 @app.route('/prodresult',methods=['POST','GET'])

@@ -18,7 +18,7 @@
         margin-left: 30px;
     }
     .grad{
-        background-image: linear-gradient(to bottom right, #FFF500, #FDBA10);
+        background-image: linear-gradient(#faf200, rgb(255,255,255));
     }
     .cover{
         
@@ -52,6 +52,18 @@
     }
     .selectt{
         width:80%;
+    }
+    .hubcol{
+        color: #ba0707;
+        font-weight: bold;
+    }
+    .depcol{
+        color: #223da3;
+        font-weight: bold;
+    }
+    .distcol{
+        color: #ba0707;
+        font-weight: bold;
     }
     </style>
 </head>
@@ -107,14 +119,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for a,b,c,d,e in result%}   
-                            <tr>
-                            <th scope="row">{{loop.index}}</th>
-                            <td>{{a}}</td>
-                            <td>{{b}}</td>
-                            <td>{{c}}</td>
-                            <td>{{d}}</td>
-                            </tr>
+                    {% for a,b,c,d,e,f in result%}
+                            {% if f=='0' %}   
+                                <tr>
+                                <th scope="row">{{loop.index}}</th>
+                                <td class="hubcol">{{a}}</td>
+                                <td class="hubcol">{{b}}</td>
+                                <td class="hubcol">{{c}}</td>
+                                <td class="hubcol">{{d}}</td>
+                                </tr>
+                            {% endif %}
+                            {% if f=='1' %}   
+                                <tr>
+                                <th scope="row">{{loop.index}}</th>
+                                <td class="depcol">{{a}}</td>
+                                <td class="depcol">{{b}}</td>
+                                <td class="depcol">{{c}}</td>
+                                <td class="depcol">{{d}}</td>
+                                </tr>
+                            {% endif %}
+                            {% if f=='2' %}   
+                                <tr>
+                                <th scope="row">{{loop.index}}</th>
+                                <td class="distcol">{{a}}</td>
+                                <td class="distcol">{{b}}</td>
+                                <td class="distcol">{{c}}</td>
+                                <td class="distcol">{{d}}</td>
+                                </tr>
+                            {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
