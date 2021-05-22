@@ -28,7 +28,6 @@
     .cover{
     }
     .mycol{
-        margin-left: 50px;
         margin-bottom: 15px;
         background-color: #AF2C2A;
     }
@@ -84,6 +83,11 @@
                 </h1>
             </div>
         </div>
+        <div class="row ">
+                <h1 style="margin-left:15px;">
+                Pathwise
+                </h1>
+        </div>
         <div class="mymargin">
             <fieldset disabled>
                 <div class="row">
@@ -105,34 +109,42 @@
             </fieldset>
         </div>
         <div>
-            <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Product SKU</th>
-                    <th scope="col">Amount (hL)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for a,b in result%}
-                        {% if b!=0 %}
-                            <tr>
-                            <th scope="row">{{loop.index}}</th>
-                            <td>{{a}}</td>
-                            <td>{{b}}</td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>
+            {% if result|length > 0 %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product SKU</th>
+                        <th scope="col">Amount (hL)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for a,b in result%}
+                            {% if b!=0 %}
+                                <tr>
+                                <th scope="row">{{loop.index}}</th>
+                                <td>{{a}}</td>
+                                <td>{{b}}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="row " style="margin-left:10px;margin-right:10px;margin-bottom:5px;">
+                    <div class="alert alert-danger" role="alert">
+                    Nothing needs to be transferred through this path.
+                    </div>
+                </div>
+            {% endif %}
         </div>
         <form action="{{ url_for('main') }}">
             <button type="submit" class="btn btn-danger mycol" value="submit">Try Different Pair</button>
         </form>
-        <form class="mymargin" method="POST">
+        <form method="POST">
             <button type="submit" class="btn btn-danger mycol" name="val" value="{{joinval}}">Download CSV</button>
         </form>
-        <form class="mymargin" action="{{ url_for('home') }}">
+        <form action="{{ url_for('home') }}">
             <button type="submit" class="btn btn-danger mycol" value="submit">Home</button>
         </form>
     </div>

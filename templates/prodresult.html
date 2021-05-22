@@ -28,7 +28,6 @@
     .cover{
     }
     .mycol{
-        margin-left: 50px;
         margin-bottom: 15px;
         background-color: #AF2C2A;
     }
@@ -85,6 +84,11 @@
                 </h1>
             </div>
         </div>
+        <div class="row ">
+                <h1 style="margin-left:15px;">
+                Productwise
+                </h1>
+        </div>
         <div class="mymargin">
             <fieldset disabled>
                 <div class="row">
@@ -121,10 +125,10 @@
         <form action="{{ url_for('productwise') }}">
             <button type="submit" class="btn btn-danger mycol" value="submit">Try Different SKU</button>
         </form>
-        <form class="mymargin" method="POST">
+        <form method="POST">
             <button type="submit" class="btn btn-danger mycol" name="val" value="{{val1}}">Download CSV</button>
         </form>
-        <form class="mymargin" action="{{ url_for('home') }}">
+        <form action="{{ url_for('home') }}">
             <button type="submit" class="btn btn-danger mycol" value="submit">Home</button>
         </form>
     </div>

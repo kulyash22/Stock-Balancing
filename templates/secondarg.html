@@ -25,7 +25,6 @@
     .cover{
     }
     .mycol{
-        margin-left: 50px;
         margin-bottom: 15px;
         background-color: #AF2C2A;
     }
@@ -81,6 +80,11 @@
                 </h1>
             </div>
         </div>
+        <div class="row ">
+                <h1 style="margin-left:15px;">
+                Pathwise
+                </h1>
+        </div>
         <div class="row">
             <form class="mymargin" method="POST">
                     <fieldset disabled>
@@ -101,58 +105,18 @@
                         {% endfor %}
                         </select>
                         </div>
-                    </div>
+                    </div> 
+                <button type="submit" class="btn btn-danger mycol" value="submit">Submit</button>
                     <div class="row invisible shrink">
                         <div class="col-md">
                         <select class="form-select form-select-lg mb-3 selectt" aria-label=".form-select-lg example" name="answer1">
                         <option selected>{{arg}}</option>
                         </select>
                         </div>
-                    </div>     
-                <button type="submit" class="btn btn-danger mycol" value="submit">Submit</button>
+                    </div>    
             </form>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md">
-            <img src="{{url_for('static', filename='logogg.png')}}" class="img-fluid" alt="Image not found">
-        </div>
-        <div class="col-md">
-            <img src="{{url_for('static', filename='L1Maverick.jpg')}}" class="img-fluid" alt="Image not found">
-        </div>
-    <div>
-    <form class="mymargin" method="POST">
-            <fieldset disabled>
-                <div class="row">
-                    <div class="col-md">
-                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="answer_dis">
-                    <option selected>{{arg}}</option>
-                    </select>
-                    </div>
-                </div>
-            </fieldset>
-            <div class="row">
-                <div class="col-md">
-                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="answer2">
-                <option selected>Open this select menu</option>
-                {% for i in opns %}
-                    <option value="{{i}}">{{i}}</option>
-                {% endfor %}
-                </select>
-                </div>
-            </div>
-            <div class="row invisible shrink">
-                <div class="col-md">
-                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="answer1">
-                <option selected>{{arg}}</option>
-                </select>
-                </div>
-            </div>     
-        <button type="submit" class="btn btn-primary" value="submit">Submit</button>
-    </form>
 </div>
 
 </body>

@@ -28,7 +28,7 @@
     .cover{
     }
     .mycol{
-        margin-left: 50px;
+        margin-left: 20px;
         margin-bottom: 15px;
         background-color: #AF2C2A;
     }
@@ -96,6 +96,11 @@
                 </h1>
             </div>
         </div>
+        <div class="row ">
+                <h1 style="margin-left:15px;">
+                Gridwise
+                </h1>
+        </div>
         <div class="mymargin">
             <fieldset disabled>
                 <div class="row">
@@ -115,9 +120,11 @@
                     </div>
                 </div>
             </fieldset>
+        <div class="row ">
+                <h1 style="margin-top:20px;margin-bottom:15px;">
+                Scenario is {{scen}} 
+                </h1>
         </div>
-        <h1> Scenario is {{scen}} </h1>
-        <div>
             <table class="table">
                 <thead>
                     <tr>
@@ -161,15 +168,19 @@
                 </tbody>
             </table>
         </div>
-        <form action="{{ url_for('gridwise') }}">
-            <button type="submit" class="btn btn-danger mycol" value="submit">Try Different Pair</button>
-        </form>
-<!--    <form class="mymargin" method="POST">
+        <div class="row">
+            <form action="{{ url_for('gridwise') }}">
+                <button type="submit" class="btn btn-danger mycol" value="submit">Try Different Pair</button>
+            </form>
+        </div>
+        <form method="POST">
             <button type="submit" class="btn btn-danger mycol" name="val" value="{{joinval}}">Download CSV</button>
-        </form>-->
-        <form class="mymargin" action="{{ url_for('home') }}">
-            <button type="submit" class="btn btn-danger mycol" value="submit">Home</button>
         </form>
+        <div class="row">
+            <form action="{{ url_for('home') }}">
+                <button type="submit" class="btn btn-danger mycol" value="submit">Home</button>
+            </form>
+        </div>
     </div>
 </div>
 

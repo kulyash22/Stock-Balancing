@@ -233,6 +233,22 @@ def gridwise2():
 
 @app.route('/gridresult',methods=['POST','GET'])
 def gridresult():
+    if request.method == 'POST':
+        joinval = request.form['val']
+        joinval = joinval.split()
+        val1,val2 = joinval[0],joinval[1]
+        si = StringIO()
+        cw = csv.writer(si)
+        lis = getgrid()[val1,val2]
+        lis = sorted(lis,key = lambda x: x[5])
+        for row in lis:
+            if row[1]!=0:
+                cw.writerow(row)
+        output = make_response(si.getvalue())
+        filename = "SKU-" + str(val1) + " to " + str(val2) +" deliveries.csv"
+        output.headers["Content-Disposition"] = "attachment; filename={}".format(filename)
+        output.headers["Content-type"] = "text/csv"
+        return output
     val1 = request.args['fromm']
     val2 = request.args['too']
     result = getgrid()[(val1,val2)]
@@ -288,8 +304,12 @@ def result():
     val2 = request.args['too']
     dict = dicti()
     result = dict[(val1,val2)]
+    finresult = []
+    for i in result:
+        if i[1]!=0:
+            finresult.append(i)
     joinval = str(val1)+" "+str(val2)
-    return render_template('result.html',result=result,val1=val1,val2=val2,joinval=joinval)
+    return render_template('result.html',result=finresult,val1=val1,val2=val2,joinval=joinval)
 
 if __name__ == '__main__':
     app.run(debug = False)
