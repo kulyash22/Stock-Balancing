@@ -4,7 +4,12 @@
     <title>Stock Balancing</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto&family=Montserrat&display=swap" rel="stylesheet">
     <style>
+    .myfont{
+        font-family: 'Montserrat', sans-serif;
+    }
     .mymargin{
         margin: 15px;
     }
@@ -28,8 +33,9 @@
         font-size: 500%;
         padding-left: 30px;
         padding-right: 30px;
-        padding-top: 30px;
-        margin-left: 30px;
+        padding-top: 10px;
+        margin-left: 15px;
+        font-family: 'Abril Fatface', cursive;
     }
     .small{
         font-size: 250%;
@@ -67,11 +73,11 @@
         <img src="{{url_for('static', filename='bott4.png')}}" class="img-fluid mav" alt="Image not found">
         </div>  
     </div>
-    <div class="col-10 grad cover">
+    <div class="col-10 grad cover myfont">
         <div class="row ">
             <div class="shadow p-3 mb-5 rounded">
                 <h1 class="big">
-                Stock Balancing
+                STOCK BALANCING
                 </h1>
             </div>
         </div>
