@@ -5,7 +5,7 @@ import csv
 import operator
 from io import StringIO
 
-app = Flask(__name__)
+app=Flask(__name__,template_folder='templates')
 
 def givedfnum():
     df = pd.read_excel('Data.xlsx')
